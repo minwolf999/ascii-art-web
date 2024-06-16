@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport"/>
+    <title>Ascii Art Generator</title>
+    <style>
+      body {
+    font-family: "Arial", sans-serif;
+    background-color: #f8f8f8;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+
+  #titleContainer {
+    background-color: #00bcd4;
+    text-align: center;
+  }
+
+  .titleButton{
+    background-color: #00bcd4;
+    padding: 20px;
+    text-align: center;
+  }
+
+  #title {
+    color: #fff;
+    margin: 0;
+  }
+
+  #responseContainer {
+    text-align: center;
+  }
+
+  p {
+    margin: 20px 0;
+  }
+
+  form {
+    max-width: 450px;
+    width: 100%;
+    background-color: #00d45f1e;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+  }
+
+  input[type="radio"] {
+    margin-right: 5px;
+  }
+
+  button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: auto;
+  }
+
+  pre {
+    margin-top: 20px;
+    white-space: pre-wrap;
+    font-size: 16px;
+  }
+  #container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+    </style>
+  </head>
+
+  <body name="body">
+    <div id="titleContainer">
+      <h1 id="title"> {{.Title}} </h1>
+      <button onclick="afficherBoiteDialogue()" class="titleButton">?</button>
+    </div>
+
+    <form action="/ascii-art" method="post">
+      <h4> {{.Paragraph}} </h4>
+      <textarea type="text" name="input" placeholder="Écris ici"> {{.Input}} </textarea>
+
+
+      <div id="container">
+        <h5>Font-Style:</h5>
+        <input type="radio" value="standard.txt" name="bouton" {{.Standard}}/>
+        <p>Standard</p>
+        <input type="radio" value="shadow.txt" name="bouton" {{.Shadow}}/>
+        <p>Shadow</p>
+        <input type="radio" value="thinkertoy.txt" name="bouton" {{.ThinkerToy}}/>
+        <p>Thinkertoy</p>
+
+        <select name="format">
+          <option value="txt" selected>txt</option>
+          <option value="doc">doc</option>
+          <option value="docx">docx</option>
+        </select>
+
+        <button type="submit">PUSH</button>
+      </div>
+
+    </form>
+    <pre><h3>{{ .Response}}</h3></pre><br>
+
+    {{if .ButtonLoad}}
+    <a href="/document">
+      <button>Download</button>
+    </a>
+    {{end}}
+
+  </body>
+</html>
+<script>
+  function afficherBoiteDialogue() {
+    if (window.confirm("Cliquez sur ok pour avoir plus d'informations sur la table ASCII.")) 
+    {
+      window.open('https://fr.wikibooks.org/wiki/Les_ASCII_de_0_%C3%A0_127/La_table_ASCII');
+    };
+  }
+</script>
